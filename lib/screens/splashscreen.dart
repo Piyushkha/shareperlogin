@@ -6,6 +6,8 @@ import 'package:instagram_clone/screens/login.dart';
 import 'package:instagram_clone/screens/mainpage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'bottomnavigation.dart';
+
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -28,7 +30,8 @@ class _SplashScreenState extends State<SplashScreen> {
     var email = per.getString('email');
     print(email);
     Navigator.of(context).pushReplacement(MaterialPageRoute(
-        builder: (context) => email == null ? LoginPage() : Mainpage()));
+        builder: (context) =>
+            email == null ? LoginPage() : BottomNavigation()));
   }
 
   @override

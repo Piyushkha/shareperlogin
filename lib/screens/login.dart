@@ -1,5 +1,8 @@
+// import 'dart:html';
+
 import 'package:flutter/material.dart';
 import 'package:instagram_clone/screens/mainpage.dart';
+import 'package:instagram_clone/screens/share_preffrence.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
@@ -50,6 +53,8 @@ class _LoginPageState extends State<LoginPage> {
                 padding: EdgeInsets.all(4),
                 child: TextField(
                   // showCursor: false,
+                  controller: _usernamecon,
+
                   decoration: InputDecoration(
                       filled: true,
                       fillColor: Colors.grey[100],
@@ -62,11 +67,13 @@ class _LoginPageState extends State<LoginPage> {
             Container(
                 padding: EdgeInsets.all(4),
                 child: TextField(
-                  obscureText: istap,
-                  showCursor: false,
+                  obscureText: !istap,
+                  // showCursor: false,
+                  keyboardType: TextInputType.emailAddress,
+                  textInputAction: TextInputAction.next,
                   decoration: InputDecoration(
                       suffixIcon: IconButton(
-                        icon: istap ? Icon(Icons.lock) : Icon(Icons.lock_open),
+                        icon: !istap ? Icon(Icons.lock) : Icon(Icons.lock_open),
                         onPressed: () {
                           setState(() {
                             istap = !istap;
@@ -90,10 +97,11 @@ class _LoginPageState extends State<LoginPage> {
             ElevatedButton(
                 onPressed: () async {
                   SharedPreferences per = await SharedPreferences.getInstance();
-                  per.setString('email', _usernamecon.text);
+                  per.setString(Prefs.email, _usernamecon.text);
                   // per.setString('password', _passwordcon.toString());
+                  print(_usernamecon.text);
                   Navigator.of(context).push(
-                      MaterialPageRoute(builder: (context) => Mainpage()));
+                      MaterialPageRoute(builder: (context) => Homepage()));
                 },
                 style: ElevatedButton.styleFrom(
                     primary: Color.fromARGB(255, 57, 134, 196),
